@@ -32,16 +32,18 @@
 var items= document.getElementsByClassName('list-group-item');
 console.log(items);
 console.log(items[1]);
-items[1].textContent="Hello 2";
-items[1].style.fontWeight='bold';
-items[1].style.backgroundColor='green';
+items[2].textContent="Hello 2";
+items[2].style.backgroundColor='green';
+for(var i=0;i<items.length;i++){
+items[i].style.fontWeight='bold';
+}
 
 //  give error
 //items.style.backgroundColor='green';
 
-for(var i=0;i<items.length;i++){
-    items[i].style.backgroundColor='#F4F4F4';
-}
+// for(var i=0;i<items.length;i++){
+//     items[i].style.backgroundColor='#F4F4F4';
+// }
 var title= document.getElementsByClassName("title");
 title[0].style.fontFamily='bold';
 console.log(title);
