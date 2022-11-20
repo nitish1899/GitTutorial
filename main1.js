@@ -214,7 +214,23 @@ function addItem(e){
   // Get input value
   var newItem = document.getElementById('item').value;
   var newItem2 = document.getElementById('item-description').value;
-  localStorage.setItem(newItem,newItem2);
+ //localStorage.setItem(newItem,newItem2);
+
+ let myObj={
+  name:newItem,
+  age:newItem2
+};
+
+let myObj_serialised=JSON.stringify(myObj);
+console.log(myObj_serialised);
+localStorage.setItem("myObj",myObj_serialised);
+console.log(localStorage);
+
+// let myObj_deserialisedd=localStorage.getItem("myObj");
+// console.log(myObj_deserialisedd);
+// let myObj_deserialised=JSON.parse(localStorage.getItem("myObj"));
+// console.log(myObj_deserialised);
+
   var liItem=`${newItem} ${newItem2}`;
   // Create new li element
   var li = document.createElement('li');
@@ -261,29 +277,48 @@ function removeItem(e){
   }
 }
 
-// Filter Items
-function filterItems(e){
-    // convert text to lowercase
-    var text = e.target.value.toLowerCase();
-    // Get lis
-    var items = itemList.getElementsByTagName('li');
-    console.log(itemList);
-    console.log(items);
-    // Convert to an array
-    Array.from(items).forEach(function(item){
-      var itemName = item.firstChild.textContent;
-      var description= item.children[1].textContent;
-      if(itemName.toLowerCase().indexOf(text) != -1 || description.toLowerCase().indexOf(text) != -1){
-        item.style.display = 'block';
-      } else {
-        item.style.display = 'none';
-      }
-    });
-  }
+// // Filter Items
+// function filterItems(e){
+//     // convert text to lowercase
+//     var text = e.target.value.toLowerCase();
+//     // Get lis
+//     var items = itemList.getElementsByTagName('li');
+//     console.log(itemList);
+//     console.log(items);
+//     // Convert to an array
+//     Array.from(items).forEach(function(item){
+//       var itemName = item.firstChild.textContent;
+//       var description= item.children[1].textContent;
+//       if(itemName.toLowerCase().indexOf(text) != -1 || description.toLowerCase().indexOf(text) != -1){
+//         item.style.display = 'block';
+//       } else {
+//         item.style.display = 'none';
+//       }
+//     });
+//   }
 
   
 
+// Storing Objects
+// let myObj={
+//   name:"Dominoz",
+//   age:24
+// };
 
+// //localStorage.setItem("myObj",myObj);
+// //We need to represent object as a string
+// //console.log(localStorage);// [object object]
+
+// let myObj_serialised=JSON.stringify(myObj);
+// console.log(myObj_serialised);
+// localStorage.setItem("myObj",myObj_serialised);
+// console.log(localStorage);
+
+// //getting object back
+// let myObj_deserialisedd=localStorage.getItem("myObj");
+// console.log(myObj_deserialisedd);
+// let myObj_deserialised=JSON.parse(localStorage.getItem("myObj"));
+// console.log(myObj_deserialised);
 
 
 
