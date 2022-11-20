@@ -67,16 +67,17 @@
 // // for(var i=0;i<items.length;i++){
 // //     items[i].style.backgroundColor='#F4F4F4';
 // // }
-// var title= document.getElementsByTagName("li");
+// var title= document.getElementsByTagName("li");-
 // li[0].style.fontFamily='bold';
 // console.log(li);
 // li[0].style.color='green';
 
 //Query Selector
 // var header=document.querySelector('#main-header');
-// header.getElementsByClassName.borderBottom='solid 4px #ff0000';
+// console.log(header);
+//  header.style.borderBottom='solid 4px #ff0000';
 
-// var input=document.querySelector('input');
+//  var input=document.querySelector('.form-control mr-2');
 // input.value='hello world';
 
 // var submit=document.querySelector('input[type="submit"]');
@@ -213,6 +214,7 @@ function addItem(e){
   // Get input value
   var newItem = document.getElementById('item').value;
   var newItem2 = document.getElementById('item-description').value;
+  localStorage.setItem(newItem,newItem2);
   var liItem=`${newItem} ${newItem2}`;
   // Create new li element
   var li = document.createElement('li');
@@ -227,7 +229,7 @@ function addItem(e){
   var editBtn = document.createElement('button');
 
   // Add classes to del button
-  deleteBtn.className = 'btn btn-danger btn-sm float-right delete';
+  deleteBtn.className = 'btn btn-danger btn-sm float-right del';
 
 //style="float:right;" type="submit" id="edit-button">Edit
   // Append text node
@@ -251,7 +253,7 @@ function addItem(e){
 
 // Remove item
 function removeItem(e){
-  if(e.target.classList.contains('delete')){
+  if(e.target.classList.contains('del')){
     if(confirm('Are You Sure?')){
       var li = e.target.parentElement;
       itemList.removeChild(li);
@@ -265,10 +267,13 @@ function filterItems(e){
     var text = e.target.value.toLowerCase();
     // Get lis
     var items = itemList.getElementsByTagName('li');
+    console.log(itemList);
+    console.log(items);
     // Convert to an array
     Array.from(items).forEach(function(item){
       var itemName = item.firstChild.textContent;
-      if(itemName.toLowerCase().indexOf(text) != -1){
+      var description= item.children[1].textContent;
+      if(itemName.toLowerCase().indexOf(text) != -1 || description.toLowerCase().indexOf(text) != -1){
         item.style.display = 'block';
       } else {
         item.style.display = 'none';
@@ -276,6 +281,7 @@ function filterItems(e){
     });
   }
 
+  
 
 
 
