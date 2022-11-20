@@ -205,33 +205,52 @@ form.addEventListener('submit', addItem);
 // Delete event
 itemList.addEventListener('click', removeItem);
 // Filter event
-filter.addEventListener('keyup', filterItems);
+//filter.addEventListener('keyup', filterItems);
+
+//Class
+ class Customer{
+  constructor(name,email,phno){
+    this.Name=name;
+    this.EmailId=email;
+    this.PhoneNumber=phno;
+  }
+ }
 
 // Add item
 function addItem(e){
   e.preventDefault();
 
   // Get input value
-  var newItem = document.getElementById('item').value;
-  var newItem2 = document.getElementById('item-description').value;
+  var newItem = document.querySelectorAll('#item')[0].value; //name=newitem
+  var newItem2 = document.getElementById('item-description').value;// email=newItem2
+  var phNo = document.getElementById('item1-description').value;
  //localStorage.setItem(newItem,newItem2);
 
- let myObj={
-  name:newItem,
-  age:newItem2
-};
+//  let myObj={
+//   name:newItem,
+//   age:newItem2
+// };
 
-let myObj_serialised=JSON.stringify(myObj);
-console.log(myObj_serialised);
-localStorage.setItem("myObj",myObj_serialised);
-console.log(localStorage);
+// let myObj_serialised=JSON.stringify(myObj);
+// console.log(myObj_serialised);
+// localStorage.setItem("myObj",myObj_serialised);
+// console.log(localStorage);
 
 // let myObj_deserialisedd=localStorage.getItem("myObj");
 // console.log(myObj_deserialisedd);
 // let myObj_deserialised=JSON.parse(localStorage.getItem("myObj"));
 // console.log(myObj_deserialised);
 
-  var liItem=`${newItem} ${newItem2}`;
+//Creating object of class
+const  obj=new Customer(newItem,newItem2,phNo);
+let myObj_serialised=JSON.stringify(obj);
+//console.log(myObj_serialised);
+//TASK 12 .1
+localStorage.setItem(obj.EmailId,myObj_serialised);
+
+
+
+  var liItem=`${newItem} ${newItem2} ${phNo}`;
   // Create new li element
   var li = document.createElement('li');
   // Add class
@@ -276,6 +295,16 @@ function removeItem(e){
     }
   }
 }
+
+
+//TASK 12.2
+Object.keys(localStorage).forEach(function(key){
+  console.log(key);
+});
+
+//TASK 12.3
+console.log(localStorage);
+
 
 // // Filter Items
 // function filterItems(e){
