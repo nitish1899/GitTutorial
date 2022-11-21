@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+  <title>Item Lister</title>
+</head> -->
+<body>
+    <form id="formItem">
+      <!-- try with onsubmit=functionName(e) -->
+        <level>Name</level>
+        <input type="text" id="Name" name="username" placeholder="userName" required>
+        <level>EmailId</level>
+        <input type="email" id="Email" name="emailId" placeholder="email" required>
+        <level>Phonenumber</level>
+        <input type="tel" id="phno" name="phonenumber" placeholder="phonenumber">
+        <button>Submit</button>        
+    </form>
+    <ul id="listOfUsers"></ul>
+    <script>
+      let form=document.getElementById('formItem'); 
+      form.addEventListener('submit',function(event){
+        event.preventDefault()// prevent the form fromautosubmitting
+           const name=event.target.username.value;
+           const email=event.target.emailId.value;
+           const phonenumber=event.target.phonenumber.value;
+          //  localStorage.setItem('name', name);
+          //  localStorage.setItem('email',email);
+          // //  localStorage.setItem('phonenumber', phonenumber);
+    
+          // Storing Objects
+              let myObj={
+                Name:name,
+                Email:email,
+                PhNo:phonenumber
+              };
+              localStorage.setItem(myObj.Email,JSON.stringify(myObj));
+              showsNewUserOnScreen(myObj);
+          // localStorage.setItem("myObj",'Nitish');
+          // localStorage.setItem("myObj1",'Nitishsah');
+          //We need to represent object as a string
+          //console.log(localStorage);// [object object]
+          // let myObj_serialised=JSON.stringify(myObwj);
+          // console.log(myObj_serialised);
+
+          
+          //console.log(localStorage);
+
+          // //getting object back
+          // let myObj_deserialisedd=localStorage.getItem("myObwj");
+          // console.log(myObj_deserialisedd);
+          // let myObj_deserialised=JSON.parse(localStorage.getItem("myObwj"));
+          // console.log(myObj_deserialised);
+    })
+    
+    function showsNewUserOnScreen(user){
+      if(localStorage.getItem(user.Email) != null){
+        removeUserFromScreen(user.Email);
+      }
+      const parentNode=document.getElementById('listOfUsers');
+      const children=`<li id="${user.Email}"> ${user.Name}- ${user.Email}-${user.PhNo}
+                      <button onclick=deleteUser('${user.Email}')>DeleteUser</button> 
+                      <button onclick=editUser('${user.Name}','${user.Email}','${user.PhNo}')>EditUser</button> 
+                      </li>`;
+      parentNode.innerHTML=children+parentNode.innerHTML;
+    }
+
+    //deleteUser
+    function deleteUser(email){
+         localStorage.removeItem(email);
+         removeUserFromScreen(email);
+    }
+
+    //editUser
+    function editUser(name,email,phno){
+        document.getElementById('Name').value=name;
+        document.getElementById('Email').value=email;
+        document.getElementById('phno').value=phno;
+
+        deleteUser(email);
+
+    }
+
+
+    function  removeUserFromScreen(email){
+      const parentNode=document.getElementById('listOfUsers');
+      const childNodeToBeDeleted=document.getElementById(email);
+      if(childNodeToBeDeleted){
+        parentNode.removeChild(childNodeToBeDeleted);
+      }
+    }
+    
+    Object.keys(localStorage).forEach((key) => {
+      stringifiedDetailsOfPeople = localStorage.getItem(key);
+      detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
+      showsNewUserOnScreen(detailsOfPeople);
+    });
+
+    
+
+    </script>
+    </body>
+    
+</html>
