@@ -56,6 +56,9 @@
     })
     
     function showsNewUserOnScreen(user){
+      document.getElementById('Name').value="";
+      document.getElementById('Email').value="";
+      document.getElementById('phno').value="";
       if(localStorage.getItem(user.Email) != null){
         removeUserFromScreen(user.Email);
       }
@@ -92,12 +95,15 @@
       }
     }
     
+  window.addEventListener("DOMContentLoaded",()=>{
+
     Object.keys(localStorage).forEach((key) => {
       stringifiedDetailsOfPeople = localStorage.getItem(key);
       detailsOfPeople = JSON.parse(stringifiedDetailsOfPeople);
       showsNewUserOnScreen(detailsOfPeople);
     });
-
+    
+  })
     
 
     </script>
