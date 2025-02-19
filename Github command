@@ -1,0 +1,42 @@
+If you've accidentally pushed a commit containing a sensitive key, you should remove it immediately to prevent any security risks. Follow these steps carefully:
+
+Step 1: Remove the Key from Your Code
+Edit the file to remove the sensitive key.
+Save the changes.
+
+Step 2: Remove the Commit Containing the Key
+Option 1: If It's the Most Recent Commit
+Run:
+git reset --hard HEAD~1  # Remove the last commit locally
+git push --force  # Force push to remove it from remote
+🚨 Warning: This permanently deletes the last commit.
+
+Option 2: If the Commit Is in the Middle of History
+Find the commit hash of the bad commit:
+git log --oneline
+Remove the commit but keep later commits:
+git rebase -i <commit-before-bad-commit>
+This opens an interactive editor.
+Change pick to drop (or d) for the commit you want to remove.
+Save and close.
+Force push the changes:
+git push --force
+Step 3: Completely Remove the Key From Git History
+Even if you delete the commit, the key might still exist in Git history. Use BFG Repo Cleaner to remove it permanently:
+
+Install BFG:
+java -jar bfg.jar --delete-files "file-with-key.txt"
+or to delete only the key from history:
+java -jar bfg.jar --replace-text banned.txt
+(Create banned.txt with the key inside.)
+
+Clean Git history:
+git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+git push --force
+Step 4: Rotate Your Key!
+Even after deletion, someone may have cloned the repo and retrieved the key. Immediately:
+
+Revoke the exposed API key.
+Generate a new key.
+Update your application with the new key.
